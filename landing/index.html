@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cerca - Todo lo que necesitás, cerca tuyo</title>
+<meta name="description" content="Cerca conecta vecinos con comercios locales. Encontrá almacenes, verdulerías, panaderías y más cerca de tu casa.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 5C28 5 10 23 10 45c0 28 40 50 40 50s40-22 40-50C90 23 72 5 50 5z' fill='%232E7D32'/%3E%3C/svg%3E">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-600-normal.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/plus-jakarta-sans@latest/latin-700-normal.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/plus-jakarta-sans@latest/latin-800-normal.css" />
+<style>
+  * { font-family: 'Inter', sans-serif; }
+  .brand-font { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; letter-spacing: -0.02em; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #F5F5F5; }
+  .gradient-bg { background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 50%, #0D3B12 100%); }
+  .hero-pattern { background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%); }
+  .feature-card { transition: all 0.3s; }
+  .feature-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(46, 125, 50, 0.15); }
+  .step-number { width: 60px; height: 60px; background: linear-gradient(135deg, #2E7D32, #1B5E20); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: 800; box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3); }
+  .cta-button { background: linear-gradient(135deg, #2E7D32, #1B5E20); color: white; font-weight: 700; padding: 16px 32px; border-radius: 16px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3); }
+  .cta-button:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(46, 125, 50, 0.4); }
+  .cta-button-secondary { background: white; color: #2E7D32; font-weight: 700; padding: 16px 32px; border-radius: 16px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; border: 2px solid #2E7D32; }
+  .cta-button-secondary:hover { background: #2E7D32; color: white; }
+  .phone-mockup { width: 280px; height: 560px; background: #000; border-radius: 40px; padding: 10px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+  .phone-screen { width: 100%; height: 100%; background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%); border-radius: 32px; overflow: hidden; }
+  .testimonial-card { background: white; border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.3s; }
+  .testimonial-card:hover { transform: translateY(-4px); }
+  .stat-card { background: white; border-radius: 20px; padding: 32px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .nav-link { color: white; font-weight: 500; transition: opacity 0.2s; }
+  .nav-link:hover { opacity: 0.8; }
+  .footer-link { color: #999; transition: color 0.2s; }
+  .footer-link:hover { color: #2E7D32; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+  .floating { animation: float 3s ease-in-out infinite; }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in-up { animation: fadeInUp 0.8s ease-out; }
+</style>
+</head>
+<body>
+
+<nav class="gradient-bg text-white sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg">
+          <svg width="24" height="24" viewBox="0 0 100 100"><path d="M50 5C28 5 10 23 10 45c0 28 40 50 40 50s40-22 40-50C90 23 72 5 50 5z" fill="#2E7D32"/><path d="M50 30c-8 0-14 6-14 14 0 11 14 21 14 21s14-10 14-21c0-8-6-14-14-14zm0 18c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z" fill="white"/></svg>
+        </div>
+        <div>
+          <div class="brand-font font-extrabold text-2xl">Cerca</div>
+          <div class="text-xs opacity-80">TODO CERCA TUYO</div>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#beneficios" class="nav-link">Beneficios</a>
+        <a href="#como-funciona" class="nav-link">Cómo funciona</a>
+        <a href="#comercios" class="nav-link">Para comercios</a>
+        <a href="#contacto" class="cta-button-secondary" style="padding: 10px 20px; font-size: 14px;"><i class="fas fa-store"></i>Sumá tu comercio</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="gradient-bg hero-pattern text-white py-20 md:py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="fade-in-up">
+        <div class="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-6"><i class="fas fa-map-marker-alt mr-2"></i>Conectando barrios</div>
+        <h1 class="brand-font text-5xl md:text-6xl font-extrabold mb-6 leading-tight">Todo lo que necesitás,<br><span class="text-yellow-300">cerca tuyo</span></h1>
+        <p class="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed">Encontrá almacenes, verdulerías, panaderías y comercios de tu barrio en un solo lugar. Apoyá lo local.</p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#como-funciona" class="cta-button"><i class="fas fa-search"></i>Explorar comercios</a>
+          <a href="#comercios" class="cta-button-secondary"><i class="fas fa-store"></i>Soy comerciante</a>
+        </div>
+        <div class="flex items-center gap-6 mt-10">
+          <div><div class="text-3xl font-extrabold">500+</div><div class="text-sm opacity-80">Comercios</div></div>
+          <div class="w-px h-12 bg-white/30"></div>
+          <div><div class="text-3xl font-extrabold">10k+</div><div class="text-sm opacity-80">Vecinos</div></div>
+          <div class="w-px h-12 bg-white/30"></div>
+          <div><div class="text-3xl font-extrabold">4.9⭐</div><div class="text-sm opacity-80">Rating</div></div>
+        </div>
+      </div>
+      <div class="hidden md:flex justify-center">
+        <div class="phone-mockup floating">
+          <div class="phone-screen flex flex-col">
+            <div class="p-6 flex items-center gap-3">
+              <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 100 100"><path d="M50 5C28 5 10 23 10 45c0 28 40 50 40 50s40-22 40-50C90 23 72 5 50 5z" fill="#2E7D32"/><path d="M50 30c-8 0-14 6-14 14 0 11 14 21 14 21s14-10 14-21c0-8-6-14-14-14zm0 18c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z" fill="white"/></svg>
+              </div>
+              <div><div class="brand-font font-extrabold text-lg">Cerca</div><div class="text-xs opacity-80">TODO CERCA TUYO</div></div>
+            </div>
+            <div class="flex-1 bg-white rounded-t-3xl p-4">
+              <div class="bg-gray-100 rounded-xl p-3 mb-4"><div class="text-gray-400 text-sm">🔍 Buscá en tu barrio...</div></div>
+              <div class="space-y-3">
+                <div class="bg-white rounded-xl p-3 shadow-sm flex items-center gap-3">
+                  <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center"><i class="fas fa-store text-green-600"></i></div>
+                  <div class="flex-1"><div class="font-semibold text-sm">Abarrotes Don Pedro</div><div class="text-xs text-gray-500">Almacén · 0.3 km</div></div>
+                  <div class="text-green-600 text-xs font-semibold">🟢 Abierto</div>
+                </div>
+                <div class="bg-white rounded-xl p-3 shadow-sm flex items-center gap-3">
+                  <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center"><i class="fas fa-bread-slice text-yellow-600"></i></div>
+                  <div class="flex-1"><div class="font-semibold text-sm">Panadería La Espiga</div><div class="text-xs text-gray-500">Panadería · 0.5 km</div></div>
+                  <div class="text-green-600 text-xs font-semibold">🟢 Abierto</div>
+                </div>
+                <div class="bg-white rounded-xl p-3 shadow-sm flex items-center gap-3">
+                  <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center"><i class="fas fa-carrot text-red-600"></i></div>
+                  <div class="flex-1"><div class="font-semibold text-sm">Verdulería La Huerta</div><div class="text-xs text-gray-500">Verdulería · 0.8 km</div></div>
+                  <div class="text-green-600 text-xs font-semibold">🟢 Abierto</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="beneficios" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <div class="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">BENEFICIOS</div>
+      <h2 class="brand-font text-4xl md:text-5xl font-extrabold mb-4">¿Por qué usar <span class="text-green-600">Cerca</span>?</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Conectamos vecinos con comercios locales</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="feature-card bg-gradient-to-br from-green-50 to-white p-8 rounded-3xl border border-green-100">
+        <div class="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg"><i class="fas fa-map-marker-alt text-white text-2xl"></i></div>
+        <h3 class="text-2xl font-bold mb-3">Cerca de casa</h3>
+        <p class="text-gray-600 leading-relaxed">Encontrá comercios a menos de 1km de tu casa.</p>
+      </div>
+      <div class="feature-card bg-gradient-to-br from-yellow-50 to-white p-8 rounded-3xl border border-yellow-100">
+        <div class="w-16 h-16 bg-yellow-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg"><i class="fab fa-whatsapp text-white text-2xl"></i></div>
+        <h3 class="text-2xl font-bold mb-3">Contacto directo</h3>
+        <p class="text-gray-600 leading-relaxed">Hablá directo con el comerciante por WhatsApp.</p>
+      </div>
+      <div class="feature-card bg-gradient-to-br from-blue-50 to-white p-8 rounded-3xl border border-blue-100">
+        <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg"><i class="fas fa-heart text-white text-2xl"></i></div>
+        <h3 class="text-2xl font-bold mb-3">Apoyá lo local</h3>
+        <p class="text-gray-600 leading-relaxed">Cada compra fortalece la economía local.</p>
+      </div>
+      <div class="feature-card bg-gradient-to-br from-purple-50 to-white p-8 rounded-3xl border border-purple-100">
+        <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg"><i class="fas fa-star text-white text-2xl"></i></div>
+        <h3 class="text-2xl font-bold mb-3">Reseñas reales</h3>
+        <p class="text-gray-600 leading-relaxed">Leé opiniones de otros vecinos.</p>
+      </div>
+      <div class="feature-card bg-gradient-to-br from-red-50 to-white p-8 rounded-3xl border border-red-100">
+        <div class="w-16 h-16 bg-red-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg"><i class="fas fa-clock text-white text-2xl"></i></div>
+        <h3 class="text-2xl font-bold mb-3">Siempre abierto</h3>
+        <p class="text-gray-600 leading-relaxed">Sabé en tiempo real qué comercios están abiertos.</p>
+      </div>
+      <div class="feature-card bg-gradient-to-br from-indigo-50 to-white p-8 rounded-3xl border border-indigo-100">
+        <div class="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg"><i class="fas fa-search text-white text-2xl"></i></div>
+        <h3 class="text-2xl font-bold mb-3">Búsqueda inteligente</h3>
+        <p class="text-gray-600 leading-relaxed">Buscá por producto, comercio o categoría.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <div class="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">CÓMO FUNCIONA</div>
+      <h2 class="brand-font text-4xl md:text-5xl font-extrabold mb-4">Tan fácil como <span class="text-green-600">1, 2, 3</span></h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-12">
+      <div class="text-center"><div class="step-number mx-auto mb-6">1</div><h3 class="text-2xl font-bold mb-3">Abrí Cerca</h3><p class="text-gray-600">Te mostramos comercios cerca tuyo automáticamente.</p></div>
+      <div class="text-center"><div class="step-number mx-auto mb-6">2</div><h3 class="text-2xl font-bold mb-3">Buscá o explorá</h3><p class="text-gray-600">Usá el mapa, buscá por producto o filtrá por categoría.</p></div>
+      <div class="text-center"><div class="step-number mx-auto mb-6">3</div><h3 class="text-2xl font-bold mb-3">Contactá por WhatsApp</h3><p class="text-gray-600">Hablá directo con el comerciante.</p></div>
+    </div>
+    <div class="text-center mt-12"><a href="#contacto" class="cta-button"><i class="fas fa-download"></i>Descargar app gratis</a></div>
+  </div>
+</section>
+
+<section id="comercios" class="py-20 gradient-bg text-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-6"><i class="fas fa-store mr-2"></i>PARA COMERCIOS</div>
+        <h2 class="brand-font text-4xl md:text-5xl font-extrabold mb-6 leading-tight">Sumá tu comercio a <span class="text-yellow-300">Cerca</span></h2>
+        <p class="text-xl mb-8 opacity-90 leading-relaxed">Llegá a más vecinos de tu barrio. Aumentá tus ventas.</p>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start gap-3"><div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1"><i class="fas fa-check text-yellow-300"></i></div><div><div class="font-bold text-lg">100% gratis</div><div class="opacity-80">Sin costos ocultos</div></div></div>
+          <div class="flex items-start gap-3"><div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1"><i class="fas fa-check text-yellow-300"></i></div><div><div class="font-bold text-lg">Panel de control</div><div class="opacity-80">Gestioná productos en tiempo real</div></div></div>
+          <div class="flex items-start gap-3"><div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1"><i class="fas fa-check text-yellow-300"></i></div><div><div class="font-bold text-lg">Estadísticas</div><div class="opacity-80">Vé visitas y consultas</div></div></div>
+          <div class="flex items-start gap-3"><div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1"><i class="fas fa-check text-yellow-300"></i></div><div><div class="font-bold text-lg">Reseñas</div><div class="opacity-80">Construí tu reputación</div></div></div>
+        </div>
+        <a href="#contacto" class="cta-button" style="background: white; color: #2E7D32;"><i class="fas fa-rocket"></i>Registrar mi comercio</a>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="stat-card bg-white/10 backdrop-blur-sm border border-white/20"><div class="text-4xl font-extrabold text-yellow-300 mb-2">+40%</div><div class="text-sm opacity-90">Más visitas</div></div>
+        <div class="stat-card bg-white/10 backdrop-blur-sm border border-white/20"><div class="text-4xl font-extrabold text-yellow-300 mb-2">3x</div><div class="text-sm opacity-90">Más consultas</div></div>
+        <div class="stat-card bg-white/10 backdrop-blur-sm border border-white/20"><div class="text-4xl font-extrabold text-yellow-300 mb-2">0$</div><div class="text-sm opacity-90">Costo</div></div>
+        <div class="stat-card bg-white/10 backdrop-blur-sm border border-white/20"><div class="text-4xl font-extrabold text-yellow-300 mb-2">5min</div><div class="text-sm opacity-90">Configuración</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <div class="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">TESTIMONIOS</div>
+      <h2 class="brand-font text-4xl md:text-5xl font-extrabold mb-4">Lo que dicen nuestros <span class="text-green-600">usuarios</span></h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="testimonial-card">
+        <div class="flex items-center gap-1 mb-4"><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i></div>
+        <p class="text-gray-700 mb-6 leading-relaxed">"Desde que uso Cerca, compro siempre en la verdulería de la esquina."</p>
+        <div class="flex items-center gap-3"><div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center"><span class="text-green-600 font-bold">ML</span></div><div><div class="font-bold">María López</div><div class="text-sm text-gray-500">Vecina de Palermo</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="flex items-center gap-1 mb-4"><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i></div>
+        <p class="text-gray-700 mb-6 leading-relaxed">"Como comerciante, Cerca me trajo muchos clientes nuevos."</p>
+        <div class="flex items-center gap-3"><div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center"><span class="text-yellow-600 font-bold">JR</span></div><div><div class="font-bold">Juan Rodríguez</div><div class="text-sm text-gray-500">Panadería</div></div></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="flex items-center gap-1 mb-4"><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i><i class="fas fa-star text-yellow-400"></i></div>
+        <p class="text-gray-700 mb-6 leading-relaxed">"Me encanta ver qué comercios están abiertos antes de salir."</p>
+        <div class="flex items-center gap-3"><div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center"><span class="text-blue-600 font-bold">SG</span></div><div><div class="font-bold">Sofía González</div><div class="text-sm text-gray-500">Vecina de Caballito</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="py-20 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+      <div class="text-center mb-8">
+        <div class="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <svg width="40" height="40" viewBox="0 0 100 100"><path d="M50 5C28 5 10 23 10 45c0 28 40 50 40 50s40-22 40-50C90 23 72 5 50 5z" fill="#2E7D32"/><path d="M50 30c-8 0-14 6-14 14 0 11 14 21 14 21s14-10 14-21c0-8-6-14-14-14zm0 18c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z" fill="white"/></svg>
+        </div>
+        <h2 class="brand-font text-3xl md:text-4xl font-extrabold mb-4">¿Listo para sumarte a <span class="text-green-600">Cerca</span>?</h2>
+        <p class="text-xl text-gray-600">Dejanos tus datos y te contactamos</p>
+      </div>
+      <form class="space-y-4" onsubmit="handleSubmit(event)">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div><label class="block text-sm font-semibold text-gray-700 mb-2">Nombre *</label><input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500" placeholder="Tu nombre"></div>
+          <div><label class="block text-sm font-semibold text-gray-700 mb-2">WhatsApp *</label><input type="tel" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500" placeholder="+54 9 11 1234-5678"></div>
+        </div>
+        <div><label class="block text-sm font-semibold text-gray-700 mb-2">Email *</label><input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500" placeholder="tu@email.com"></div>
+        <div><label class="block text-sm font-semibold text-gray-700 mb-2">Comercio</label><input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500" placeholder="Ej: Panadería La Espiga"></div>
+        <div><label class="block text-sm font-semibold text-gray-700 mb-2">Mensaje</label><textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500" placeholder="Contanos más..."></textarea></div>
+        <button type="submit" class="w-full cta-button justify-center"><i class="fas fa-paper-plane"></i>Enviar y sumarme</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="gradient-bg text-white py-12">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 100 100"><path d="M50 5C28 5 10 23 10 45c0 28 40 50 40 50s40-22 40-50C90 23 72 5 50 5z" fill="#2E7D32"/><path d="M50 30c-8 0-14 6-14 14 0 11 14 21 14 21s14-10 14-21c0-8-6-14-14-14zm0 18c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z" fill="white"/></svg>
+          </div>
+          <div><div class="brand-font font-extrabold text-xl">Cerca</div><div class="text-xs opacity-80">TODO CERCA TUYO</div></div>
+        </div>
+        <p class="text-sm opacity-80">Conectando vecinos con comercios locales.</p>
+      </div>
+      <div><h4 class="font-bold mb-4">Producto</h4><ul class="space-y-2 text-sm"><li><a href="#beneficios" class="footer-link">Beneficios</a></li><li><a href="#como-funciona" class="footer-link">Cómo funciona</a></li><li><a href="#comercios" class="footer-link">Comercios</a></li></ul></div>
+      <div><h4 class="font-bold mb-4">Empresa</h4><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link">Sobre nosotros</a></li><li><a href="#" class="footer-link">Blog</a></li><li><a href="#contacto" class="footer-link">Contacto</a></li></ul></div>
+      <div><h4 class="font-bold mb-4">Legal</h4><ul class="space-y-2 text-sm"><li><a href="#" class="footer-link">Términos</a></li><li><a href="#" class="footer-link">Privacidad</a></li></ul></div>
+    </div>
+    <div class="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="text-sm opacity-80">© 2026 Cerca. Todos los derechos reservados.</div>
+      <div class="flex gap-4">
+        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function handleSubmit(e) { e.preventDefault(); alert('¡Gracias por sumarte a Cerca! 🎉\n\nTe contactaremos pronto.'); e.target.reset(); }
+document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', function(e) { e.preventDefault(); const t = document.querySelector(this.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
+</script>
+
+</body>
+</html>
