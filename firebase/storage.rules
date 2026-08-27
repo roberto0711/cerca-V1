@@ -1,0 +1,53 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // ═══════════════════════════════════════════════════════
+    // 🖼️ IMÁGENES DE COMERCIOS
+    // ═══════════════════════════════════════════════════════
+    match /stores/{storeId}/{allPaths=**} {
+      
+      // ✅ CUALQUIERA puede ver las imágenes
+      allow read: if true;
+      
+      // ✅ Solo usuarios autenticados pueden subir
+      // ✅ Solo imágenes, máximo 5MB
+      allow write: if request.auth != null
+                   && request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+    }
+    
+    // ═══════════════════════════════════════════════════════
+    // 🛍️ IMÁGENES DE PRODUCTOS
+    // ═══════════════════════════════════════════════════════
+    match /products/{storeId}/{allPaths=**} {
+      
+      allow read: if true;
+      
+      allow write: if request.auth != null
+                   && request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+    }
+    
+    // ═══════════════════════════════════════════════════════
+    // 👤 AVATARES DE USUARIOS
+    // ═══════════════════════════════════════════════════════
+    match /avatars/{userId}/{allPaths=**} {
+      
+      allow read: if true;
+      
+      allow write: if request.auth != null
+                   && request.auth.uid == userId
+                   && request.resource.size < 2 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+    }
+    
+    // ═══════════════════════════════════════════════════════
+    // ❌ TODO LO DEMÁS: PROHIBIDO
+    // ═══════════════════════════════════════════════════════
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
