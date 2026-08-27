@@ -1,0 +1,110 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ═══════════════════════════════════════════════════════
+    // 🔧 FUNCIONES AUXILIARES
+    // ═══════════════════════════════════════════════════════
+    
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isStoreOwner(storeId) {
+      return isSignedIn() && 
+             exists(/databases/$(database)/documents/stores/$(storeId)) &&
+             get(/databases/$(database)/documents/stores/$(storeId)).data.ownerUid == request.auth.uid;
+    }
+    
+    function isOwnFavorites(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    function isValidStoreData() {
+      let data = request.resource.data;
+      return data.keys().hasAll(['name', 'category', 'address', 'whatsapp', 'imageUrl', 'isOpen'])
+             && data.name is string
+             && data.category is string
+             && data.whatsapp is string
+             && data.isOpen is boolean;
+    }
+    
+    function isValidProductData() {
+      let data = request.resource.data;
+      return data.keys().hasAll(['storeId', 'name', 'price', 'description', 'imageUrl'])
+             && data.name is string
+             && data.price is number
+             && data.price >= 0;
+    }
+    
+    // ═══════════════════════════════════════════════════════
+    // 🏪 COLECCIÓN: stores (Comercios)
+    // ═══════════════════════════════════════════════════════
+    match /stores/{storeId} {
+      
+      // ✅ CUALQUIERA puede leer comercios
+      allow read: if true;
+      
+      // ✅ SOLO el dueño puede crear su comercio
+      allow create: if isSignedIn() 
+                    && request.resource.data.ownerUid == request.auth.uid
+                    && isValidStoreData();
+      
+      // ✅ SOLO el dueño puede actualizar SU comercio
+      allow update: if isStoreOwner(storeId)
+                    && isValidStoreData();
+      
+      // ❌ NADIE puede eliminar comercios
+      allow delete: if false;
+      
+      // ─── SUBCOLECCIÓN: reviews (Reseñas) ───
+      match /reviews/{reviewId} {
+        allow read: if true;
+        
+        allow create: if isSignedIn()
+                      && request.resource.data.keys().hasAll(['userName', 'rating', 'userId'])
+                      && request.resource.data.rating is number
+                      && request.resource.data.rating >= 1
+                      && request.resource.data.rating <= 5
+                      && request.resource.data.userId == request.auth.uid;
+        
+        allow update, delete: if false;
+      }
+    }
+    
+    // ═══════════════════════════════════════════════════════
+    // 🛍️ COLECCIÓN: products (Productos)
+    // ═══════════════════════════════════════════════════════
+    match /products/{productId} {
+      
+      allow read: if true;
+      
+      allow create: if isSignedIn()
+                    && isStoreOwner(request.resource.data.storeId)
+                    && isValidProductData();
+      
+      allow update: if isSignedIn()
+                    && exists(/databases/$(database)/documents/products/$(productId))
+                    && isStoreOwner(resource.data.storeId);
+      
+      allow delete: if isSignedIn()
+                    && exists(/databases/$(database)/documents/products/$(productId))
+                    && isStoreOwner(resource.data.storeId);
+    }
+    
+    // ═══════════════════════════════════════════════════════
+    // 👤 COLECCIÓN: users (Datos de usuario)
+    // ═══════════════════════════════════════════════════════
+    match /users/{userId} {
+      
+      allow read, create, update: if isOwnFavorites(userId);
+      allow delete: if false;
+      
+      // ─── SUBCOLECCIÓN: favorites ───
+      match /favorites/{favoriteId} {
+        allow read, create, update, delete: if isOwnFavorites(userId);
+      }
+    }
+  }
+}
